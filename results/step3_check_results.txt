@@ -1,0 +1,29 @@
+CHECK 1 - average slope of log-likelihood at the true values (should be ~0)
+  T=0.6 (mostly Case I/II), Plan II, 3000 datasets
+    average slope in std errors: a=+2.20  b1=+1.08  b2=-3.22  b3=-1.55
+    passes (all between -4 and +4): True
+  T=0.9 (mostly Case II/III), Plan II, 3000 datasets
+    average slope in std errors: a=-0.52  b1=-1.60  b2=+0.43  b3=-0.37
+    passes (all between -4 and +4): True
+  (random noise gives values up to about 3; a real mistake in the
+   likelihood, e.g. leaving out the Case II term, gives 15 to 60)
+
+CHECK 2 - one dataset (S1, T=0.6, Plan III)
+  cases: ['I', 'I', 'II']   D: [12, 12, 13]
+  MLE:  a = 1.8742   b = 2.1699, 2.0381, 2.5875   (true a = 2, b = 1.5, 2.0, 2.5)
+  full 4-parameter search gives: 1.8742, 2.1699, 2.0381, 2.5875
+  largest difference = 1.41e-08  (should be below 1e-3): True
+  number of peaks on the grid: 1 (should be 1)
+  plot saved: ./step3_profile_loglik.png
+
+CHECK 3 - one very large dataset (n_i = 2000, m_i = 1800, k_i = 1500, T = 0.95, Plan I)
+  MLE:  a = 2.0292   b = 1.5350, 2.0244, 2.4805
+  true: a = 2.0000   b = 1.5000, 2.0000, 2.5000   (should be very close)
+
+CHECK 4 - average MLE over 1000 datasets (T = 0.6, Plan I)
+  setup   avg a    avg b1   avg b2   avg b3   failed fits
+  S1      2.1389   1.7954   2.3518   2.9828   0
+  S2      2.1248   1.7443   2.3131   2.8786   0
+  n=100   2.0292   1.5637   2.0742   2.5739   0
+  true:   2.0000   1.5000   2.0000   2.5000
+  (small samples are a little off - normal for MLE; it should improve down the table)
