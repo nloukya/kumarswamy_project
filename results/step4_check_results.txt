@@ -1,0 +1,19 @@
+CHECK 5 - pooling on the guide's example b = (2.0, 1.8, 2.5), equal sizes
+  result: 1.8947, 1.8947, 2.5000   (blocks 1-2 should merge to about 1.9; block 3 stays 2.5)
+
+CHECK 6 - pooling vs a brute-force constrained search, 200 random cases
+  largest amount brute force beat pooling by = 2.84e-14  (should be about 0)
+  passes: True
+
+CHECK 7 - one dataset where the plain MLE comes out of order
+  plain MLE:      a = 1.9527   b = 0.9342, 2.8215, 2.4216
+  restricted MLE: a = 1.9516   b = 0.9337, 2.6116, 2.6116
+  restricted b in order: True
+  log-likelihood plain -15.0672 >= restricted -15.1460: True
+
+CHECK 8 - mean squared error over 1000 datasets (S1, T = 0.6, Plan I)
+  When the true b really are ordered, the restricted MLE should have
+  smaller (or equal) error for the b's.
+                a        b1       b2       b3
+  plain        0.1793   0.6274   1.1354   2.1678
+  restricted   0.1747   0.4432   0.8079   2.1687

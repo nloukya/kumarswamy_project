@@ -1,0 +1,42 @@
+CHECK 1 - do the pivots follow their chi-square distributions? (3000 datasets, S1, Plan II)
+  K-S p-value above 0.01 = consistent with chi-square
+  T     cases seen           P(a)     2*b1*W1   2*b2*W2   2*b3*W3
+  1.0   III                   0.129     0.832     0.301     0.727
+  0.9   I,II,III              0.011     0.228     0.793     0.395
+  0.6   I,II,III              0.670     0.588     0.632     0.779
+  T = 1.0 is the exact case (every block stops at its m-th failure).
+  At T = 0.6 / 0.9 the stopping rule depends on the data, so the chi-square
+  results are only approximate in theory; in practice they come out very
+  close. Check 3 shows the effect on the estimates.
+
+CHECK 2 - one dataset (S1, T = 0.6, Plan III), N = 5000 draws
+  cases: ['I', 'II', 'I']
+  par    MLE       pivotal   pivotal 95% GCI      restricted pivotal
+  a      1.6615    1.5285    (0.9820, 2.1626)    1.5285
+  b1     1.2644    1.1736    (0.5255, 2.1469)    1.1416
+  b2     2.0565    1.8826    (0.7813, 3.7543)    1.5790
+  b3     1.5102    1.3933    (0.6214, 2.6013)    1.6551
+
+CHECK 3 - 500 datasets each (S1, Plan I), N = 1000 draws per dataset
+  AB = |average estimate - truth|, MSE = mean squared error,
+  CP = share of 95% GCIs containing the truth (target 0.95)
+  'Pivotal (last failure)' is the other way of handling Case II blocks,
+  shown only for comparison.
+  T = 1.0
+    method                    AB (a, b1, b2, b3)          MSE (a, b1, b2, b3)         CP (a, b1, b2, b3)
+    MLE                       0.167, 0.271, 0.460, 0.652    0.154, 0.606, 1.224, 2.121      (see Step 5)
+    Pivotal                   0.050, 0.179, 0.322, 0.463    0.117, 0.495, 0.978, 1.687    0.954, 0.946, 0.938, 0.950
+    Restricted pivotal        0.050, 0.062, 0.251, 0.603    0.117, 0.252, 0.653, 1.797    0.954, 0.952, 0.948, 0.936
+    Pivotal (last failure)    0.050, 0.179, 0.322, 0.463    0.117, 0.495, 0.978, 1.687    0.954, 0.946, 0.938, 0.950
+  T = 0.9
+    method                    AB (a, b1, b2, b3)          MSE (a, b1, b2, b3)         CP (a, b1, b2, b3)
+    MLE                       0.162, 0.253, 0.432, 0.609    0.165, 0.470, 1.078, 2.051      (see Step 5)
+    Pivotal                   0.044, 0.163, 0.294, 0.422    0.127, 0.380, 0.858, 1.611    0.946, 0.938, 0.958, 0.942
+    Restricted pivotal        0.044, 0.063, 0.214, 0.563    0.127, 0.241, 0.526, 1.689    0.946, 0.944, 0.960, 0.944
+    Pivotal (last failure)    0.045, 0.166, 0.297, 0.425    0.127, 0.377, 0.860, 1.611    0.948, 0.944, 0.958, 0.944
+  T = 0.6
+    method                    AB (a, b1, b2, b3)          MSE (a, b1, b2, b3)         CP (a, b1, b2, b3)
+    MLE                       0.167, 0.316, 0.483, 0.643    0.198, 0.630, 1.483, 2.756      (see Step 5)
+    Pivotal                   0.018, 0.184, 0.300, 0.399    0.153, 0.477, 1.181, 2.137    0.934, 0.952, 0.942, 0.944
+    Restricted pivotal        0.018, 0.062, 0.217, 0.565    0.153, 0.321, 0.768, 2.241    0.934, 0.956, 0.942, 0.946
+    Pivotal (last failure)    0.090, 0.312, 0.605, 0.773    0.184, 0.815, 3.235, 4.070    0.928, 0.940, 0.924, 0.932

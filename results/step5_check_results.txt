@@ -1,0 +1,39 @@
+CHECK 1 - formula vs numerical second derivatives, 50 datasets
+  cases covered: ['I', 'II', 'III']
+  largest relative difference = 2.16e-05  (should be below 1e-4): True
+
+CHECK 2 - intervals for one dataset (S1, T = 0.6, Plan III), chosen so
+  the plain MLE is out of order and the two methods differ
+  MLE
+    par    estimate   std err    normal 95%            log 95%
+    a      2.2831     0.3989    (1.5013, 3.0650)    (1.6211, 3.2155)
+    b1     2.1706     0.8093    (0.5845, 3.7568)    (1.0453, 4.5076)
+    b2     1.4199     0.4990    (0.4420, 2.3979)    (0.7131, 2.8274)
+    b3     3.2315     1.3248    (0.6349, 5.8281)    (1.4469, 7.2173)
+  Restricted MLE
+    par    estimate   std err    normal 95%            log 95%
+    a      2.2479     0.3985    (1.4668, 3.0290)    (1.5880, 3.1819)
+    b1     1.6844     0.5805    (0.5467, 2.8222)    (0.8573, 3.3098)
+    b2     1.6844     0.6362    (0.4375, 2.9313)    (0.8035, 3.5314)
+    b3     3.1462     1.2928    (0.6124, 5.6800)    (1.4061, 7.0395)
+
+CHECK 3 - coverage over 1000 datasets (T = 0.6, Plan I); target 0.95
+  These are large-sample intervals, so in small samples they can be a
+  few points off 0.95 either way; they should settle near 0.95 as n grows.
+  S1:                     cover a  cover b1 cover b2 cover b3 | avg length a, b1, b2, b3
+    MLE        normal        0.948   0.965   0.970   0.974  | 1.475, 2.737, 3.729, 4.818
+    MLE        log           0.915   0.949   0.949   0.937  | 1.504, 2.999, 4.105, 5.325
+    Restricted normal        0.952   0.963   0.983   0.991  | 1.478, 2.539, 3.610, 4.993
+    Restricted log           0.923   0.964   0.966   0.942  | 1.507, 2.772, 3.972, 5.540
+  S2:                     cover a  cover b1 cover b2 cover b3 | avg length a, b1, b2, b3
+    MLE        normal        0.950   0.968   0.955   0.964  | 1.190, 2.076, 2.840, 3.605
+    MLE        log           0.931   0.948   0.941   0.943  | 1.206, 2.204, 3.026, 3.846
+    Restricted normal        0.951   0.968   0.972   0.979  | 1.191, 1.999, 2.772, 3.701
+    Restricted log           0.932   0.956   0.962   0.949  | 1.207, 2.120, 2.952, 3.955
+  n=100:                     cover a  cover b1 cover b2 cover b3 | avg length a, b1, b2, b3
+    MLE        normal        0.947   0.953   0.963   0.964  | 0.638, 1.020, 1.415, 1.755
+    MLE        log           0.945   0.933   0.956   0.954  | 0.641, 1.038, 1.443, 1.789
+    Restricted normal        0.947   0.955   0.971   0.965  | 0.639, 1.014, 1.410, 1.765
+    Restricted log           0.945   0.939   0.963   0.955  | 0.641, 1.032, 1.437, 1.799
+  (restricted intervals use the same formula at the restricted
+   estimate - the usual approach in these papers)
